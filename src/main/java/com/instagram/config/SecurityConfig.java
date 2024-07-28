@@ -17,7 +17,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         ////////// 요청 구현
         http.authorizeHttpRequests(request -> {
-            request.requestMatchers("/user/signup", "/static/**").permitAll();
+            request.requestMatchers("/user/signup", "/user/auth", "/user/check", "/static/**").permitAll();
             request.anyRequest().authenticated();
         });
 

@@ -21,6 +21,10 @@ public class UserService {
         this.userDefaultImageData = resource.getContentAsByteArray();
     }
 
+    public boolean check_user_is_duplicated(UserDTO user){
+        UserDTO findUser = userMapper.getUserByUserInfo(user);
+        return findUser != null;
+    }
     public void create_user(UserDTO user){
         user.setImage(userDefaultImageData);
         userMapper.insertUser(user);

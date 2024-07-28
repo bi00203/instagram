@@ -12,9 +12,9 @@
 <main>
     <section class="login-section">
         <img src="../../static/images/logo/Instagram.png" alt="insta-logo">
-        <form id="login-form" action="#" method="post">
+        <form id="login-form" th:action="@{/user/login}" method="post">
             <label>
-                <input type="email" name="email" placeholder="이메일">
+                <input type="text" name="email" placeholder="이메일">
             </label>
             <label>
                 <input type="password" name="password" placeholder="비밀번호">

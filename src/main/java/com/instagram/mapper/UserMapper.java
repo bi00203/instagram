@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
 
-    UserDTO getUserByEmail(String email);
-
+    // 유저 회원가입
     void insertUser(UserDTO user);
 
+    UserDTO getUserByUserInfo(UserDTO user);
 }

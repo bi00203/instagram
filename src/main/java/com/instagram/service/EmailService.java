@@ -15,7 +15,7 @@ public class EmailService {
     @Value("${mail.from}")
     private String FROM;
 
-    public void send_signup_auth_mail(String userEmail) throws Exception{
+    public String send_signup_auth_mail(String userEmail) throws Exception{
         Random random = new Random();
         String authNumber = "" + random.nextInt(10) + random.nextInt(10) + random.nextInt(10) + random.nextInt(10);
 
@@ -27,5 +27,7 @@ public class EmailService {
         helper.setFrom(FROM);
 
         mailSender.send(mimeMessage);
+
+        return authNumber;
     }
 }

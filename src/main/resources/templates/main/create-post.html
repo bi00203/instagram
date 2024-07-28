@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" href="../../static/css/main/create-post.css">
+    <script src="../../static/js/main/create-post.js" defer></script>
+</head>
+<body>
+<div id="create-post-container" active>
+    <article>
+        <header class="create-post-header">
+            <button id="create-post-close-btn" type="button">
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+            <h2>새 게시물 만들기</h2>
+
+            <button id="create-btn" type="button">게시하기</button>
+        </header>
+
+        <form class="create-post-main" th:action="@{/post/create}" method="post" enctype="multipart/form-data">
+            <div class="create-post-images">
+
+                <section class="image-viewer-section">
+                    <span>사진을 등록해주세요</span>
+                    <figure></figure>
+                    <video src="" autoplay></video>
+                </section>
+
+                <div class="image-file-append-container">
+                    <ul id="image-file-viewer">
+                        <li class="image-file-view">
+                            <label>
+                                <input type="file" name="contents" accept="image/*,video/*">
+                                <i class="bi bi-plus-circle-dotted"></i>
+                            </label>
+                            <figure></figure>
+                            <button type="button" class="image-file-rm-btn">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </li>
+                    </ul>
+                    <button type="button" id="image-file-viewer-on-off-btn">
+                        <i class="bi bi-stickies"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="create-post-information">
+                <section class="publisher-top">
+                    <div class="user-profile-img-container">
+                        <img src="../../static/images/2.jpg" alt="#"/>
+                    </div>
+                    <span class="user-name" th:text="${#authentication.principal.nickname}">sushi_musume_jk</span>
+                </section>
+                <section class="post-contents-container">
+                    <label><textarea id="contents" placeholder="문구를 입력하세요..."></textarea></label>
+                </section>
+            </div>
+        </form>
+    </article>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
