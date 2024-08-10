@@ -11,5 +11,13 @@
     </settings>
     <typeAliases>
         <typeAlias type="com.instagram.dto.UserDTO" alias="UserDTO" />
+        <typeAlias type="com.instagram.dto.PostDTO" alias="PostDTO" />
+        <typeAlias type="com.instagram.dto.FileDTO" alias="FileDTO" />
     </typeAliases>
 </configuration>
+
+
+
+
+
+

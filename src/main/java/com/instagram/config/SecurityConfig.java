@@ -4,17 +4,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // object 태그로 우리 어플리케이션의 다른 html 화면을 보여줄 수 있도록 설정함
+        http.headers(config -> {
+           config.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);
+        });
+
         ////////// 요청 구현
         http.authorizeHttpRequests(request -> {
             request.requestMatchers("/user/signup", "/user/auth", "/user/check", "/static/**").permitAll();

@@ -54,8 +54,11 @@ public class UserController {
 
     /*********************************************************/
     @GetMapping("/check")
-    public ResponseEntity<Void> check_user(UserDTO user){
-        log.info("중복검사 진입 : ");
+    public ResponseEntity<Void> check_user(
+            HttpSession session,
+            UserDTO user
+    ){
+        log.info(user);
         boolean result = userService.check_user_is_duplicated(user);
         // 유저가 중복임
         if(result){
@@ -64,6 +67,8 @@ public class UserController {
         // 유저를 생성할 수 있음
         return ResponseEntity.ok().body(null);
     }
+
+
     // 유저에게 이메일로 인증 번호를 전송함
     @ResponseBody
     @PostMapping("/auth")
@@ -76,7 +81,7 @@ public class UserController {
             // email 에 인증번호를 발송하고 인증번호를 가져옴
             String emailAuthNumber = emailService.send_signup_auth_mail(email);
             session.setAttribute("emailAuthNumber", emailAuthNumber);
-            // 발송에 성공했으면 ok.
+            // 발송에 성공했으면 ok. 
             return ResponseEntity.ok(null);
         }catch (Exception e){
             log.error("이메일 발송오류: " + e.getMessage());

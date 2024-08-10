@@ -1,3 +1,4 @@
+@import "main-public.css";
 @import "../public/public.css";
 /************************************************/
 #main{
@@ -24,7 +25,7 @@
     text-align: center;
 }
 
-#main-header .user-profile-nickname{
+#main .user-profile-nickname{
     margin-right: 5px;
     color: var(--main-color);
     font-family: Light;
@@ -120,20 +121,16 @@
     touch-action: pan-y pinch-zoom;
     margin-left: calc(var(--slide-spacing) * -1);
 }
-main .embla__slide {
+#main .embla__slide {
     height: 100%;
     flex: 0 0 var(--slide-size);
     min-width: 0;
     padding-left: var(--slide-spacing);
 }
-main .embla__slide__number {
+#main .embla__slide img, #main .embla__slide video{
+    width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    object-fit: cover;
 }
 
 .embla__controls {

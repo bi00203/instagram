@@ -1,13 +1,10 @@
 @import "../public/public.css";
 
 #create-post-container{
-    display: none;
+    display: block;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.3);
-}
-#create-post-container[active]{
-    display: block;
 }
 
 #create-post-container > article{
@@ -46,10 +43,10 @@
     border: none;
     background-color: unset;
     font-size: var(--font-size-regular);
+    cursor: pointer;
 }
 .create-post-header > #create-post-close-btn{
     font-size: var(--font-size-medium);
-    cursor: pointer;
 }
 
 
@@ -268,9 +265,49 @@
     outline: none;
 }
 
+/***********************************************/
+#spinner-container{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    z-index: 99;
+    background-color: rgba(100,100,100,0.3);
+}
+#spinner-container[active]{
+    display: flex;
+}
+#spinner-container > i{
+    font-family: Black;
+    font-size: 45px;
+    animation-name: spinner;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+#spinner-container > b{
+    font-style: italic;
+    font-family: Medium;
+    font-size: var(--font-size-medium);
+}
 
-
-
+@keyframes spinner {
+    from{
+        transform: rotate(0deg);
+        color: var(--main-color);
+    }
+    50%{
+        color: var(--color-RockON-4);
+    }
+    to{
+        transform: rotate(360deg);
+        color: var(--main-color);
+    }
+}
 
 
 

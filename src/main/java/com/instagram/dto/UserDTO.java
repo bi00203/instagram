@@ -17,36 +17,36 @@ public class UserDTO implements UserDetails {
     private String password;
     private String name;
     private String nickname;
-    private byte[] image;
+    private FileDTO image;
     private String introduce;
-
+    
     @Override
-    public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+    public boolean isEnabled() {
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
-    public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
     @Override
     public String getUsername() {
         return this.email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
     }
 }

@@ -22,9 +22,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info(username); // 유저가 로그인할 때 작성한 email
-
+        
         UserDTO tempUser = new UserDTO();
         tempUser.setEmail(username);
+
         UserDTO findUser = userMapper.getUserByUserInfo(tempUser);
         // 해당 유저가 존재하지 않는다
         if (Objects.isNull(findUser)){

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.instagram.mapper.PostMapper">
+    <resultMap id="getPostsWithContentsMap" type="PostDTO" autoMapping="true">
+        <id property="no" column="no" />
+        <association property="user" resultMap="com.instagram.mapper.UserMapper.getUserWithImageMap" />
+        <collection property="contents" ofType="FileDTO" javaType="list" autoMapping="true">
+            <id property="uuid" column="uuid" />
+        </collection>
+    </resultMap>
+
+
+    <select id="getPosts" resultType="PostDTO" resultMap="getPostsWithContentsMap">
+        SELECT
+            *
+        FROM post POST
+        <if test="lastPostNo lt 1">
+            INNER JOIN (
+                SELECT `no` FROM `post` ORDER BY `no` DESC LIMIT 3
+            ) AS SUB_P ON POST.`no` = SUB_P.`no`
+        </if>
+            INNER JOIN `user` USER
+            ON USER.email = POST.user_email
+            INNER JOIN `post_contents` POST_CTS
+            ON POST.`no` = POST_CTS.`post_no`
+        <if test="lastPostNo gte 1">
+            WHERE POST.`no` IN (
+                SELECT `no` FROM `post` WHERE `no` BETWEEN #{lastPostNo} - 3 AND #{lastPostNo} - 1
+            )
+        </if>
+        ORDER BY POST.`no` DESC
+    </select>
+
+
+
+
+    <insert id="insertPost">
+        INSERT INTO `post` (no, user_email, text) VALUES
+        (NULL, #{user.email}, #{text})
+    </insert>
+
+    <insert id="insertPostContents">
+        <selectKey keyProperty="no" resultType="int" order="BEFORE">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO `post_contents` (uuid, `order`, post_no, data, mime_type, extension) VALUES
+        <foreach collection="contents" item="postContents" separator=",">
+            (#{postContents.uuid}, #{postContents.order}, #{no} ,#{postContents.data}, #{postContents.mimeType}, #{postContents.extension})
+        </foreach>
+    </insert>
+
+
+
+
+
+</mapper>
+
+
+
+
+

@@ -39,7 +39,6 @@ emailAuthBtn.onclick = () => {
 console.log(emailInput)
 // 이메일 입력 시 이메일 검사
 emailInput.onchange = () => {
-    console.log("email change");
     const emailDuplicateMessageDiv = document.getElementById('email-duplicate-message');
     const email = emailInput.value.trim();
     fetch(`/user/check?email=${email}`)
@@ -53,7 +52,6 @@ emailInput.onchange = () => {
 }
 // 닉네임 입력 시 검사
 nicknameInput.onchange = () => {
-    console.log("nickname change");
     const nicknameDuplicateMessageDiv = document.getElementById('nickname-duplicate-message');
     const nickname = nicknameInput.value.trim();
     fetch(`/user/check?nickname=${nickname}`)
