@@ -1,4 +1,10 @@
+const chatViewBtn = document.getElementById('chat-view-btn');
+chatViewBtn.onclick = () => {
+    location.href = '/chat';
+}
+
 const createPostBtn = document.getElementById('create-post-btn');
+
 // 생성 버튼 클릭 시 동작
 createPostBtn.onclick = () => {
     console.log('게시물 생성 창 OPEN..');

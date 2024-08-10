@@ -13,6 +13,8 @@
         <typeAlias type="com.instagram.dto.UserDTO" alias="UserDTO" />
         <typeAlias type="com.instagram.dto.PostDTO" alias="PostDTO" />
         <typeAlias type="com.instagram.dto.FileDTO" alias="FileDTO" />
+        <typeAlias type="com.instagram.dto.ChatRoomDTO" alias="ChatRoomDTO" />
+        <typeAlias type="com.instagram.dto.ChatMessageDTO" alias="ChatMessageDTO" />
     </typeAliases>
 </configuration>
 
