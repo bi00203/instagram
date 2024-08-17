@@ -1,17 +1,19 @@
 package com.instagram.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
+@Builder
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO implements UserDetails {
     private String email;
     private String password;
@@ -19,7 +21,9 @@ public class UserDTO implements UserDetails {
     private String nickname;
     private FileDTO image;
     private String introduce;
-    
+    private Set<String> followings;
+    private Set<String> followers;
+
     @Override
     public boolean isEnabled() {
         return true;

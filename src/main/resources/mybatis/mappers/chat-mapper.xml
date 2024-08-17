@@ -34,7 +34,6 @@
         ORDER BY `C_MESSAGE`.`no`;
     </select>
 
-
     <select id="selectChatRoomsByUserEmail" resultType="ChatRoomDTO" resultMap="selectChatRoomsWithLastMessageAndOtherUserMap">
         SELECT
             *
@@ -55,6 +54,30 @@
             GROUP BY `room_id`
             )
     </select>
+
+    <select id="selectChatRoomByUserEmails" resultType="ChatRoomDTO">
+        SELECT room_id AS 'id' FROM chat_user
+        WHERE room_id IN
+              (
+                  SELECT room_id FROM chat_user WHERE user_email = #{meEmail}
+              ) AND user_email = #{otherEmail}
+    </select>
+
+
+    <insert id="insertChatMessageOfRoomId">
+        INSERT INTO `chat_message` (no, send_user, room_id, message, send_time)
+        VALUES (NULL, #{chatMessage.sender.email}, #{roomId}, #{chatMessage.message}, DEFAULT);
+    </insert>
+
+    <insert id="insertRoom">
+        INSERT INTO `chat_room` VALUES (#{id}, DEFAULT)
+    </insert>
+
+    <insert id="insertRoomUsers">
+        INSERT INTO `chat_user` VALUES
+                                    (#{chatRoom.id}, #{meEmail}),
+                                    (#{chatRoom.id}, #{chatRoom.otherUser.email})
+    </insert>
 </mapper>
 
 

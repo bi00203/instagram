@@ -47,12 +47,12 @@
                 </div>
             </div>
 
-            <div class="create-post-information">
+            <div class="create-post-information" th:with="me=${#authentication.principal}">
                 <section class="publisher-top">
                     <div class="user-profile-img-container">
-                        <img src="../../static/images/2.jpg" alt="#"/>
+                        <img th:src="@{|/image/${me.email}|}" src="../../static/images/2.jpg" alt="#"/>
                     </div>
-                    <span class="user-name">sushi_musume_jk</span>
+                    <span class="user-name" th:text="${me.nickname}">sushi_musume_jk</span>
                 </section>
                 <section class="post-contents-container">
                     <label><textarea id="contents" name="text" placeholder="문구를 입력하세요..."></textarea></label>

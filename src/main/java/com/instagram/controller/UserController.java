@@ -8,9 +8,12 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Log4j2
@@ -81,7 +84,7 @@ public class UserController {
             // email 에 인증번호를 발송하고 인증번호를 가져옴
             String emailAuthNumber = emailService.send_signup_auth_mail(email);
             session.setAttribute("emailAuthNumber", emailAuthNumber);
-            // 발송에 성공했으면 ok. 
+            // 발송에 성공했으면 ok.
             return ResponseEntity.ok(null);
         }catch (Exception e){
             log.error("이메일 발송오류: " + e.getMessage());
@@ -90,10 +93,44 @@ public class UserController {
         }
     }
 
+    /*********************************************************/
+    @ResponseBody
+    @GetMapping("/search")
+    public ResponseEntity<List<UserDTO>> find_user(String keyword){
+        List<UserDTO> users = userService.find_user_by_keyword(keyword);
+        return ResponseEntity.ok(users);
+    }
 
+    /************************************************************/
+    @GetMapping("/mypage/{email}")
+    public String get_user_mypage(
+            @PathVariable String email,
+            Model model
+    ){
+        UserDTO user = userService.get_user(email);
+        model.addAttribute("user", user);
+        return "user/mypage";
+    }
 
+    @ResponseBody
+    @PostMapping("/follow")
+    public ResponseEntity<Void> post_follow_user(
+            @AuthenticationPrincipal UserDTO user,
+            @RequestBody String otherUserEmail
+    ){
+        userService.follow_user(user, otherUserEmail);
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
 
-
+    @ResponseBody
+    @DeleteMapping("/follow")
+    public ResponseEntity<Void> delete_follow_user(
+            @AuthenticationPrincipal UserDTO user,
+            @RequestBody String otherUserEmail
+    ){
+        userService.unFollow_user(user, otherUserEmail);
+        return ResponseEntity.ok(null);
+    }
 
 
 

@@ -2,9 +2,15 @@ const main = document.getElementById('main');
 const contentsLoadOffset = 100; // 가장 화면 최하단으로부터 100px 정도 떨어진 곳에 도착했다면 새로 컨텐츠를 로드
 const mainSection = document.getElementById('main-section');
 
-load_posts(0);
+load_posts(99999999);
 // 메인화면에서 스크롤 할 때 이벤트
 main.onscroll = scroll;
+
+function show_post(postNo){
+    const objectTag = document.createElement('object');
+    objectTag.data = `/post/${postNo}`;
+    document.body.appendChild(objectTag);
+}
 
 function scroll(){
     // 최하단에서 100px 정도 떨어진 위치로 왔다
@@ -20,7 +26,7 @@ function scroll(){
 
 function load_posts(lastArticleNo){
     console.log('load_posts 실행..')
-    if(lastArticleNo == 1){
+    if(lastArticleNo <= 1){
         console.log('마지막 게시물');
         return; // fetch 요청 안보내고 종료
     }

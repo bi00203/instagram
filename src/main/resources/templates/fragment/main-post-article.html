@@ -1,10 +1,10 @@
 <article th:each="post: ${posts}" th:id="${post.no}">
     <header>
-        <a href="#" class="user-profile-img-container">
+        <a th:href="@{|/user/mypage/${post.user.email}|}" href="#" class="user-profile-img-container">
             <img th:src="@{|/image/${post.user.email}|}" src="https://i.namu.wiki/i/l0x04r27DjSQmS-WgYk6I5x6IkKMyvZjRMyK5dI3EMoMikzCd2Kfl2SMRdvL3-y4zpxI_qLP-fs3QToSR7AU3g.webp" alt="#">
         </a>
         <span class="user-profile-nickname" th:text="${post.user.nickname}">aniplex_jp</span>
-        <span class="write-time" th:text="${post.writeTime}">2주</span>
+        <span class="write-time" th:text="${post.diffTime}">2주</span>
         <button type="button" class="more-menu">
             <i class="bi bi-three-dots"></i>
         </button>
@@ -58,7 +58,7 @@
 
     <div class="post-content">
         <div class="content-container">
-            <a href="#" class="user-name" th:text="${post.user.nickname}">asmi_creator</a>
+            <a th:href="@{|/user/mypage/${post.user.email}|}" href="#" class="user-name" th:text="${post.user.nickname}">asmi_creator</a>
             <span class="content" th:text="${post.text}">
                             雲みたいな綿菓子キャンディー🍭<br>
                             <br>
@@ -78,7 +78,7 @@
     </div>
 
     <div class="comment-container">
-        <button type="button">댓글 16개 모두 보기</button>
+        <button type="button" th:onclick="|show_post(${post.no})|">댓글 16개 모두 보기</button>
         <label>
             <input type="text" active placeholder="댓글 달기...">
             <button type="button">게시</button>

@@ -47,20 +47,6 @@
     }
 }
 
-#login-form .duplicate-message{
-    display: none;
-    color: var(--color-RockON-5);
-    text-align: left;
-    font-family: ExtraLight;
-    font-size: var(--font-size-extralight);
-}
-#login-form .duplicate-message[active]{
-    display: block;
-}
-
-
-
-
 #login-form > button{
     margin: 15px 0;
     padding: 10px 0;
@@ -117,6 +103,7 @@
     color: var(--color-RockON-5);
     font-family: Medium;
 }
+
 
 
 
